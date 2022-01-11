@@ -63,9 +63,9 @@ open class NpmIndexTask : DefaultTask() {
     }
 
     private fun packageJsonContainsTypes(file: File): Boolean {
-        if(file.length() == 0L) return false
-        logger.info("Currently parsing: {}".format(file.absolutePath))
+        logger.info("Current file: ${file.absolutePath}")
 
+        if(file.length() == 0L) return false
         val parsedFile = JsonSlurper().parse(file)
         return (parsedFile is Map<*, *> && parsedFile["typings"] != null)
     }
