@@ -34,6 +34,10 @@ task javadocJar(type: Jar) {
     classifier = 'javadoc'
 }
 
+test.onlyIf {
+    project.hasProperty('runTests')
+}
+
 artifacts {
     archives sourcesJar
     archives javadocJar

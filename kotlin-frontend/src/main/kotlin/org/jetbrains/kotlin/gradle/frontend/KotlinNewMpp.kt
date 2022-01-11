@@ -2,6 +2,7 @@ package org.jetbrains.kotlin.gradle.frontend
 
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinSingleJavaTargetExtension
@@ -43,7 +44,7 @@ object KotlinNewMpp {
         }
     }
 
-    private fun forEachJsTarget(project: Project, action: (kotlin2js: KotlinCompilation, testKotlin2js: KotlinCompilation) -> Unit) {
+    private fun forEachJsTarget(project: Project, action: (kotlin2js: KotlinCompilation<KotlinCommonOptions>, testKotlin2js: KotlinCompilation<KotlinCommonOptions>) -> Unit) {
         val kotlinExtension = project.multiplatformExtension ?: run {
             project.pluginManager.apply(Kotlin2JsPluginWrapper::class.java)
             project.kotlinExtension as KotlinSingleJavaTargetExtension
@@ -59,8 +60,8 @@ object KotlinNewMpp {
 
             hasTarget = true
 
-            var mainCompilation: KotlinCompilation? = null
-            var testCompilation: KotlinCompilation? = null
+            var mainCompilation: KotlinCompilation<KotlinCommonOptions>? = null
+            var testCompilation: KotlinCompilation<KotlinCommonOptions>? = null
 
             target.compilations.all { compilation ->
                 when (compilation.name) {
